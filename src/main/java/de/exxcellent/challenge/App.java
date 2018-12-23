@@ -34,12 +34,12 @@ public final class App {
             switch(getFileNameWithoutExtension(selectedFile))
             {
                 case "football":
-                    dataEntry = readFootballFile(selectedFile);
+                    dataEntry = getAbsMinDifferenceFromFootballCSVFile(selectedFile) ;
                     String teamWithSmallestGoalSpread = dataEntry.getFootballDataEntry(); // Your goal analysis function call …
                     System.out.printf("Team with smallest goal spread: %s%n", teamWithSmallestGoalSpread);
                     break;
                 case "weather":
-                    dataEntry = readWeatherFile(selectedFile);
+                    dataEntry = getMinDifferenceFromWeatherCSVFile(selectedFile) ;
                     String dayWithSmallestTempSpread = dataEntry.getWeatherDataEntry(); // Your day analysis function call …
                     System.out.printf("Day with smallest temperature spread: %s%n", dayWithSmallestTempSpread);
                     break;
@@ -61,7 +61,7 @@ public final class App {
         // Your preparation code …
     }
 
-    public static DataEntry readWeatherFile(File file)
+    public static DataEntry getMinDifferenceFromWeatherCSVFile(File file)
     {
         String weatherFile = file.getAbsolutePath();
         BufferedReader bufferedReader = null;
@@ -115,7 +115,7 @@ public final class App {
         }
     }
 
-    public static DataEntry readFootballFile(File file)
+    public static DataEntry getAbsMinDifferenceFromFootballCSVFile(File file)
     {
         String footBallFile = file.getAbsolutePath();
         BufferedReader bufferedReader = null;
@@ -169,7 +169,7 @@ public final class App {
         }
     }
 
-    public static void readJSONFile(File file)
+    public static boolean readJSONFile(File file)
     {
         JSONParser parser = new JSONParser();
 
@@ -191,10 +191,13 @@ public final class App {
             {
                 System.out.println(iterator.next());
             }
+            System.out.println(companyList.get(0));
+            return true;
         }
         catch (Exception e)
         {
             e.printStackTrace();
+            return false;
         }
     }
 

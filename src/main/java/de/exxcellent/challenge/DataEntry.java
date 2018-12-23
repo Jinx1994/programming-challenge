@@ -7,10 +7,10 @@ public class DataEntry {
     private int minDifference;
     private String entryName;
 
-    public DataEntry(int minValue, int maxValue, int minDifference, String entryName)
+    public DataEntry(int firstValue, int secondValue, int minDifference, String entryName)
     {
-        this.firstValue = minValue;
-        this.secondValue = maxValue;
+        this.firstValue = firstValue;
+        this.secondValue = secondValue;
         this.minDifference = minDifference;
         this.entryName = entryName;
     }
