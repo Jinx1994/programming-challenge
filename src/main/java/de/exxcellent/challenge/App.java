@@ -7,6 +7,11 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.lang.Math;
+import java.util.Iterator;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 /**
  * The entry class for your solution. This class is only aimed as starting point and not intended as baseline for your software
@@ -37,6 +42,17 @@ public final class App {
                     dataEntry = readWeatherFile(selectedFile);
                     String dayWithSmallestTempSpread = dataEntry.getWeatherDataEntry(); // Your day analysis function call …
                     System.out.printf("Day with smallest temperature spread: %s%n", dayWithSmallestTempSpread);
+                    break;
+                default:
+                    break;
+            }
+        }
+        else if(getFileExtension(selectedFile).equals("json"))
+        {
+            switch(getFileNameWithoutExtension(selectedFile))
+            {
+                case "example":
+                    readJSONFile(selectedFile);
                     break;
                 default:
                     break;
@@ -150,6 +166,35 @@ public final class App {
         {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public static void readJSONFile(File file)
+    {
+        JSONParser parser = new JSONParser();
+
+        try
+        {
+            Object obj = parser.parse(new FileReader(file.getAbsolutePath()));
+
+            JSONObject jsonObject = (JSONObject) obj;
+
+            String name = (String) jsonObject.get("Name");
+            String author = (String) jsonObject.get("Organization");
+            JSONArray companyList = (JSONArray) jsonObject.get("Company List");
+
+            System.out.println("Name: " + name);
+            System.out.println("Organization: " + author);
+            System.out.println("\nCompany List:");
+            Iterator<String> iterator = companyList.iterator();
+            while (iterator.hasNext())
+            {
+                System.out.println(iterator.next());
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
         }
     }
 
